@@ -5,9 +5,9 @@ Legenda: 🎬 Reel · 🖼️ Carrossel · ✅ publicado
 ## Semana 1: apresentação
 | Dia | Formato | Tema | Status |
 |---|---|---|---|
-| Seg | 🖼️ | [Quem sou eu e o que você vai aprender aqui](../posts/01-apresentacao.md) | |
-| Qua | 🎬 | [Criei um app em 10 minutos com Claude Code](../posts/02-reel-app-10-minutos.md) | |
-| Sex | 🖼️ | [O que é Claude Code e por que é diferente do ChatGPT](../posts/03-carrossel-o-que-e-claude-code.md) | |
+| Seg | 🖼️ | [Quem sou eu e o que você vai aprender aqui](../posts/01-apresentacao/roteiro.md) | |
+| Qua | 🎬 | [Criei um app em 10 minutos com Claude Code](../posts/02-reel-app-10-minutos/roteiro.md) | |
+| Sex | 🖼️ | [O que é Claude Code e por que é diferente de um chat de IA](../posts/03-o-que-e-claude-code/roteiro.md) | |
 | Dom | 🎬 | Projeto da semana: to-do list com IA | |
 
 ## Semana 2: fundamentos

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Modelo de carrossel · marcusodev</title>
+<!-- Os caminhos abaixo funcionam a partir de posts/<nome>/carrossel.html.
+     Para abrir este modelo direto da pasta templates/carrossel, troque por "estilo.css" e "slides.js". -->
+<link rel="stylesheet" href="../../templates/carrossel/estilo.css">
+</head>
+<body>
+
+<!-- ============ CAPA ============ -->
+<section class="slide capa">
+  <span class="etiqueta">Claude Code</span>
+  <h1 class="titulo"><span class="cursor">Título que prende em 3 segundos</span></h1>
+  <p class="comentario">subtítulo curto em estilo de comentário</p>
+</section>
+
+<!-- ============ TEXTO ============ -->
+<section class="slide">
+  <h2 class="titulo medio">Um título por slide</h2>
+  <p class="texto">No máximo 30 palavras. Use <span class="destaque">uma</span> palavra em laranja para destacar a ideia principal.</p>
+</section>
+
+<!-- ============ LISTA ============ -->
+<section class="slide">
+  <h2 class="titulo medio">Lista com prompt</h2>
+  <ul class="lista">
+    <li><b>Item um:</b> explicação curta</li>
+    <li><b>Item dois:</b> explicação curta</li>
+    <li><b>Item três:</b> explicação curta</li>
+  </ul>
+</section>
+
+<!-- ============ TERMINAL / CÓDIGO ============ -->
+<section class="slide">
+  <h2 class="titulo pequeno">Mostre o comando</h2>
+  <div class="terminal">
+    <div class="barra"><i></i><i></i><i></i><span>~/projeto</span></div>
+<pre><span class="p">&gt;</span> claude
+<span class="c">// peça o plano antes do código</span>
+<span class="p">&gt;</span> cria uma API de tarefas
+<span class="ok">✓ 4 arquivos criados</span></pre>
+  </div>
+</section>
+
+<!-- ============ COMPARAÇÃO ============ -->
+<section class="slide">
+  <div class="comparacao">
+    <div class="lado ruim"><h3>Jeito errado</h3><p class="texto pequeno">O que a maioria faz.</p></div>
+    <div class="lado bom"><h3>Jeito certo</h3><p class="texto pequeno">O que você vai fazer a partir de hoje.</p></div>
+  </div>
+</section>
+
+<!-- ============ AVISO ============ -->
+<section class="slide">
+  <div class="aviso">
+    <h2 class="titulo pequeno" style="margin-bottom:24px">⚠️ Atenção</h2>
+    <p class="texto">Use para limitações, cuidados ou erros comuns.</p>
+  </div>
+</section>
+
+<!-- ============ CTA (último slide) ============ -->
+<section class="slide cta">
+  <img class="simbolo" src="../../marca/logo/simbolo.svg" alt="">
+  <h2 class="titulo medio">Salva e me segue</h2>
+  <p class="texto apoio">Chamada para ação com o próximo passo.</p>
+  <span class="botao">Comenta "PALAVRA"</span>
+</section>
+
+<script src="../../templates/carrossel/slides.js"></script>
+</body>
+</html>
