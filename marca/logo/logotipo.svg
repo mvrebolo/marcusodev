@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 160" width="660" height="160">
+  <rect width="660" height="160" fill="#0D0D0D"/>
+  <polyline points="40,48 84,80 40,112" fill="none" stroke="#D97757" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="116" y="106" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace" font-size="76" font-weight="700" fill="#F5F5F0" letter-spacing="-2">marcusodev</text>
+  <rect x="570" y="96" width="52" height="14" rx="3" fill="#D97757"/>
+</svg>

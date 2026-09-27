@@ -19,7 +19,7 @@
 
 ## Legenda
 ```
-Bem-vindo(a) ao @marcusodevig 👋
+Bem-vindo(a) ao @marcusodev 👋
 
 Criei este perfil para mostrar, sem enrolação, como construir projetos de verdade com programação e IA, principalmente com o Claude Code.
 

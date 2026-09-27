@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>marcusodev · painel da marca</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{--terminal:#0D0D0D;--grafite:#1A1A1A;--papel:#F5F5F0;--laranja:#D97757;--verde:#3FB950;--vermelho:#F85149;--cinza:#8B8B85}
+  *{box-sizing:border-box;margin:0}
+  body{background:var(--terminal);color:var(--papel);font-family:Inter,sans-serif;padding:64px}
+  .grid>*{min-width:0}
+  .mono{font-family:'JetBrains Mono',monospace}
+  h2{font:400 22px 'JetBrains Mono',monospace;color:var(--cinza);margin-bottom:24px}
+  h2::before{content:'// '}
+  .grid{display:grid;gap:32px}
+  .card{background:var(--grafite);border-radius:20px;padding:40px}
+  .top{grid-template-columns:1fr 2fr;align-items:stretch}
+  .logo{display:flex;align-items:center;gap:12px;font:700 88px 'JetBrains Mono',monospace;letter-spacing:-3px}
+  .logo .p,.logo .c{color:var(--laranja)} .logo .c{animation:blink 1s steps(1) infinite}
+  .tag{margin-top:20px;font-size:30px;color:var(--cinza)} .tag b{color:var(--papel);font-weight:600}
+  .swatches{grid-template-columns:repeat(7,1fr);gap:16px}
+  .sw{border-radius:14px;overflow:hidden;background:var(--grafite)}
+  .sw div{height:120px} .sw p{padding:14px 16px;font-size:15px} .sw span{display:block;color:var(--cinza);font:400 14px 'JetBrains Mono',monospace;margin-top:4px}
+  .type{grid-template-columns:1fr 1fr}
+  .big{font:700 64px 'JetBrains Mono',monospace;line-height:1.1} .body{font-size:30px;line-height:1.45}
+  .term{background:var(--grafite);border-radius:16px;overflow:hidden}
+  .bar{display:flex;gap:10px;padding:18px 20px;background:#222}
+  .bar i{width:16px;height:16px;border-radius:50%;display:block}
+  .code{padding:28px;font:400 24px/1.7 'JetBrains Mono',monospace}
+  .posts{grid-template-columns:repeat(3,1fr)}
+  .post{aspect-ratio:4/5;background:var(--terminal);border:2px solid #262626;border-radius:16px;padding:40px;position:relative;display:flex;flex-direction:column;justify-content:center}
+  .post .n{position:absolute;top:28px;right:32px;font:400 18px 'JetBrains Mono',monospace;color:var(--cinza)}
+  .post .sig{position:absolute;bottom:28px;left:32px;font:400 18px 'JetBrains Mono',monospace}
+  .post .sig b,.post .arrow{color:var(--laranja)} .post .arrow{position:absolute;bottom:22px;right:32px;font-size:30px}
+  .post h3{font:700 44px/1.15 'JetBrains Mono',monospace}
+  .hl{color:var(--laranja)} .ok{color:var(--verde)} .no{color:var(--vermelho)} .dim{color:var(--cinza)}
+  @keyframes blink{50%{opacity:0}}
+</style>
+</head>
+<body>
+<div class="grid" style="gap:56px;grid-template-columns:minmax(0,1fr)">
+
+  <section class="grid top">
+    <div class="card" style="display:flex;align-items:center;justify-content:center">
+      <img src="logo/simbolo.svg" width="260" height="260" alt="Símbolo >_">
+    </div>
+    <div class="card" style="display:flex;flex-direction:column;justify-content:center">
+      <div class="logo"><span class="p">&gt;</span><span>marcusodev</span><span class="c">_</span></div>
+      <p class="tag"><b>Do prompt ao deploy.</b> Projetos reais com programação e IA.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>cores</h2>
+    <div class="grid swatches">
+      <div class="sw"><div style="background:#0D0D0D;border-bottom:1px solid #262626"></div><p>Terminal<span>#0D0D0D</span></p></div>
+      <div class="sw"><div style="background:#1A1A1A;border-bottom:1px solid #262626"></div><p>Grafite<span>#1A1A1A</span></p></div>
+      <div class="sw"><div style="background:#F5F5F0"></div><p>Papel<span>#F5F5F0</span></p></div>
+      <div class="sw"><div style="background:#D97757"></div><p>Laranja<span>#D97757</span></p></div>
+      <div class="sw"><div style="background:#3FB950"></div><p>Verde<span>#3FB950</span></p></div>
+      <div class="sw"><div style="background:#F85149"></div><p>Vermelho<span>#F85149</span></p></div>
+      <div class="sw"><div style="background:#8B8B85"></div><p>Cinza<span>#8B8B85</span></p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>tipografia + elementos</h2>
+    <div class="grid type">
+      <div class="card">
+        <p class="dim mono" style="font-size:18px;margin-bottom:12px">JetBrains Mono 700 · títulos</p>
+        <p class="big"><span class="hl">&gt;</span> Bora codar.</p>
+        <p class="dim mono" style="font-size:18px;margin:32px 0 12px">Inter 400 · textos</p>
+        <p class="body">Aqui tem projeto rodando, não teoria solta. Código, erros, acertos e deploy.</p>
+      </div>
+      <div class="term">
+        <div class="bar"><i style="background:#F85149"></i><i style="background:#E3B341"></i><i style="background:#3FB950"></i></div>
+        <div class="code">
+          <div><span class="hl">&gt;</span> claude</div>
+          <div class="dim">// peça o plano antes do código</div>
+          <div><span class="hl">&gt;</span> cria uma landing page e faz o deploy</div>
+          <div class="ok">✓ 6 arquivos criados</div>
+          <div class="ok">✓ deploy concluído</div>
+          <div><span class="hl">&gt;</span> <span class="hl">_</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>aplicação no feed</h2>
+    <div class="grid posts">
+      <div class="post">
+        <span class="n">01/08</span>
+        <h3>Claude Code <span class="hl">não</span> é só mais um chat de IA<span class="hl">_</span></h3>
+        <p class="body dim" style="font-size:24px;margin-top:24px">// entenda a diferença</p>
+        <span class="sig"><b>&gt;</b> marcusodev<b>_</b></span><span class="arrow">→</span>
+      </div>
+      <div class="post">
+        <span class="n">02/08</span>
+        <h3 style="font-size:36px;margin-bottom:28px">Chat comum <span class="no">✗</span></h3>
+        <p class="body" style="font-size:24px">Copia o código, cola, dá erro, copia o erro, cola de volta...</p>
+        <h3 style="font-size:36px;margin:40px 0 28px">Claude Code <span class="ok">✓</span></h3>
+        <p class="body" style="font-size:24px">Trabalha <span class="hl">direto no seu projeto</span>.</p>
+        <span class="sig"><b>&gt;</b> marcusodev<b>_</b></span><span class="arrow">→</span>
+      </div>
+      <div class="post" style="align-items:center;text-align:center">
+        <img src="logo/simbolo.svg" width="120" height="120" alt="" style="margin-bottom:32px">
+        <h3>Salva e me segue</h3>
+        <p class="body dim" style="font-size:24px;margin-top:20px">todo domingo tem Projeto da semana</p>
+        <span class="sig"><b>&gt;</b> marcusodev<b>_</b></span>
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

@@ -50,10 +50,6 @@ Ensino a criar projetos com Claude Code 🛠️
 
 **Evitar:** clickbait vazio, promessas de "fique rico com IA" e jargão sem explicação.
 
-## Identidade visual (sugestão)
+## Identidade visual
 
-- **Estilo:** fundo escuro, estética de terminal ou editor de código.
-- **Cores:** preto `#0D0D0D`, off-white `#F5F5F0`, laranja de destaque `#D97757` e verde terminal `#3FB950`.
-- **Fontes:** *JetBrains Mono* para código e títulos curtos, *Inter* para textos.
-- **Formato:** 1080×1350 (4:5) para feed e carrossel, 1080×1920 para Reels e stories.
-- **Assinatura:** `@marcusodevig` pequeno no canto de toda arte.
+Cores, fontes, logo e elementos gráficos estão no [manual da marca](manual-da-marca.md).

@@ -1,4 +1,8 @@
-# @marcusodevig — Instagram profissional
+# @marcusodev — Instagram profissional
+
+> **Do prompt ao deploy.**
+
+![Painel da marca](marca/painel-da-marca.png)
 
 Central de conteúdo do meu Instagram sobre **programação, LLMs, projetos reais e Claude Code**.
 
@@ -8,7 +12,7 @@ Central de conteúdo do meu Instagram sobre **programação, LLMs, projetos reai
 
 | Pasta | O que tem |
 |---|---|
-| [`marca/`](marca/) | Bio, posicionamento, público, tom de voz e identidade visual |
+| [`marca/`](marca/) | [Manual da marca](marca/manual-da-marca.md), logo, [painel visual](marca/painel-da-marca.png), bio e público |
 | [`estrategia/`](estrategia/) | Pilares de conteúdo e funil até a venda dos cursos |
 | [`calendario/`](calendario/) | Planejamento mês a mês |
 | [`posts/`](posts/) | Posts prontos (legenda, roteiro, CTA e hashtags) |
