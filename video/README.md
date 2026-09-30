@@ -1,6 +1,6 @@
 # Carrossel animado (Remotion)
 
-Cada slide do carrossel vira um vídeo curto (1080×1350, cerca de 5 s) com as animações e os sons da marca:
+O slide 1 sai como **imagem de capa** (`01.jpg`, já com a animação completa), porque o Instagram usa o primeiro item como miniatura no perfil e o primeiro quadro do vídeo seria vazio. Os demais slides viram vídeos curtos (1080×1350, cerca de 5 s) com as animações e os sons da marca:
 
 - títulos entrando palavra por palavra, com um "tic" suave em cada palavra;
 - comandos **digitados no terminal**, com som de teclado;
@@ -15,7 +15,7 @@ Os sons são sintetizados por código (`npm run sons`), sem samples de terceiros
 
 1. Crie `video/posts/<id>.ts` descrevendo os slides (veja `03-o-que-e-claude-code.ts`). Em títulos e textos, `*palavras entre asteriscos*` ficam em laranja.
 2. Registre o post em `video/posts/index.ts`.
-3. Gere os vídeos: `npm run videos -- <id>`. Eles ficam em `posts/<id>/videos/`.
+3. Gere o carrossel: `npm run videos -- <id>`. A capa e os vídeos ficam em `posts/<id>/videos/`.
 4. Commit + push e publique: `npm run publicar -- posts/<id> --publicar`. Se o post tiver a pasta `videos/`, sai carrossel animado; se não, carrossel de imagens.
 
 Para ver e ajustar ao vivo no navegador: `npx remotion studio video/index.ts`.

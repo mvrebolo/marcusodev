@@ -1,12 +1,13 @@
-// Gera um MP4 1080×1350 animado para cada slide de um post (carrossel de vídeos).
+// Gera o carrossel animado de um post: o slide 1 sai como imagem (capa, porque o Instagram usa
+// o primeiro item como miniatura no perfil) e os demais como MP4 1080×1350 animados.
 //
 // Uso:   npm run videos -- 03-o-que-e-claude-code
-// Saída: posts/03-o-que-e-claude-code/videos/01.mp4, 02.mp4, ...
+// Saída: posts/03-o-que-e-claude-code/videos/01.jpg, 02.mp4, 03.mp4, ...
 //
 // Os slides animados ficam descritos em video/posts/<id>.ts.
 // Para ver e ajustar ao vivo no navegador: npx remotion studio video/index.ts
 import { bundle } from '@remotion/bundler';
-import { getCompositions, renderMedia } from '@remotion/renderer';
+import { getCompositions, renderMedia, renderStill } from '@remotion/renderer';
 import { mkdir, rm } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 
@@ -27,8 +28,25 @@ if (composicoes.length === 0) throw new Error(`Nenhum slide para "${id}". Regist
 await rm(saida, { recursive: true, force: true });
 await mkdir(saida, { recursive: true });
 
-for (const composicao of composicoes) {
-  const arquivo = join(saida, `${composicao.id.slice(id.length + 1)}.mp4`);
+const QUADRO_DA_CAPA = 100; // animação da capa já terminou e o cursor "_" está aceso
+
+for (const [i, composicao] of composicoes.entries()) {
+  const numero = composicao.id.slice(id.length + 1);
+  if (i === 0) {
+    const arquivo = join(saida, `${numero}.jpg`);
+    await renderStill({
+      serveUrl,
+      composition: composicao,
+      frame: Math.min(QUADRO_DA_CAPA, composicao.durationInFrames - 1),
+      output: arquivo,
+      imageFormat: 'jpeg',
+      jpegQuality: 95,
+      ...navegador,
+    });
+    console.log(`✓ ${arquivo} (capa)`);
+    continue;
+  }
+  const arquivo = join(saida, `${numero}.mp4`);
   await renderMedia({
     serveUrl,
     composition: composicao,
@@ -40,4 +58,4 @@ for (const composicao of composicoes) {
   console.log(`✓ ${arquivo} (${(composicao.durationInFrames / composicao.fps).toFixed(1)} s)`);
 }
 
-console.log(`\n${composicoes.length} vídeos gerados em ${saida}`);
+console.log(`\nCapa + ${composicoes.length - 1} vídeos gerados em ${saida}`);

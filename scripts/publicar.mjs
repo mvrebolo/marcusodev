@@ -4,8 +4,9 @@
 //   npm run publicar -- posts/03-o-que-e-claude-code              → modo de teste (não publica nada)
 //   npm run publicar -- posts/03-o-que-e-claude-code --publicar   → publica de verdade
 //
-// Lê a mídia e a legenda + hashtags do <post>/roteiro.md. A mídia vem de <post>/videos/*.mp4
-// (carrossel animado, gerado com npm run videos) ou, se não houver vídeos, de <post>/slides/*.jpg.
+// Lê a mídia e a legenda + hashtags do <post>/roteiro.md. A mídia vem de <post>/videos/
+// (carrossel animado gerado com npm run videos: capa em .jpg + slides em .mp4) ou, se essa
+// pasta não existir, de <post>/slides/*.jpg.
 // O repositório é público: a Meta baixa as imagens direto do GitHub (raw.githubusercontent.com),
 // fixadas no commit atual. Por isso os slides precisam estar commitados e enviados (git push) antes.
 //
@@ -52,15 +53,16 @@ if (!legenda) throw new Error('Não encontrei a legenda: o roteiro.md precisa de
 if (legenda.length > 2200) throw new Error(`Legenda com ${legenda.length} caracteres (máximo do Instagram: 2200).`);
 
 const listar = (dir, padrao) => readdir(dir).then((fs) => fs.filter((f) => padrao.test(f)).sort(), () => []);
-const videos = await listar(join(dirPost, 'videos'), /\.mp4$/i);
-const ehVideo = videos.length > 0;
-const dirMidia = join(dirPost, ehVideo ? 'videos' : 'slides');
-const arquivos = ehVideo ? videos : await listar(dirMidia, /\.jpe?g$/i);
+const animado = await listar(join(dirPost, 'videos'), /\.(mp4|jpe?g)$/i);
+const dirMidia = join(dirPost, animado.length > 0 ? 'videos' : 'slides');
+const arquivos = animado.length > 0 ? animado : await listar(dirMidia, /\.jpe?g$/i);
+const eVideo = (arquivo) => /\.mp4$/i.test(arquivo);
+const ehVideo = arquivos.some(eVideo);
 if (arquivos.length === 0) throw new Error(`Nenhuma mídia em ${dirPost}/videos ou /slides. Rode antes: npm run slides ou npm run videos.`);
 if (arquivos.length > MAX_ITENS_CARROSSEL) throw new Error(`${arquivos.length} arquivos; o carrossel aceita até ${MAX_ITENS_CARROSSEL}.`);
 
 console.log(`Post: ${nomePost}`);
-console.log(`${ehVideo ? 'Vídeos' : 'Imagens'} (${arquivos.length}): ${arquivos.join(', ')}`);
+console.log(`Mídia (${arquivos.length}): ${arquivos.join(', ')}`);
 console.log(`Legenda (${legenda.length} caracteres):\n${'-'.repeat(40)}\n${legenda}\n${'-'.repeat(40)}`);
 
 // ---------- links públicos no GitHub ----------
@@ -77,13 +79,13 @@ if (!git('branch', '-r', '--contains', commit)) throw new Error(`O commit ${comm
 const raiz = git('rev-parse', '--show-toplevel');
 const links = arquivos.map((f) => `https://raw.githubusercontent.com/${repo}/${commit}/${relative(raiz, join(dirMidia, f))}`);
 // o GitHub entrega .mp4 como application/octet-stream
-const tiposAceitos = ehVideo ? ['video/mp4', 'application/octet-stream'] : ['image/jpeg'];
+const tiposAceitos = (arquivo) => (eVideo(arquivo) ? ['video/mp4', 'application/octet-stream'] : ['image/jpeg']);
 
 console.log('\nConferindo os links...');
-for (const link of links) {
+for (const [i, link] of links.entries()) {
   const resposta = await fetch(link, { method: 'HEAD' });
   const tipo = resposta.headers.get('content-type') ?? '';
-  if (!resposta.ok || !tiposAceitos.some((t) => tipo.startsWith(t))) throw new Error(`Arquivo indisponível (${resposta.status} ${tipo}): ${link}`);
+  if (!resposta.ok || !tiposAceitos(arquivos[i]).some((t) => tipo.startsWith(t))) throw new Error(`Arquivo indisponível (${resposta.status} ${tipo}): ${link}`);
   console.log(`  ✓ ${link}`);
 }
 
@@ -140,17 +142,17 @@ if (!publicar) {
   process.exit(0);
 }
 
-const midia = (link) => (ehVideo ? { media_type: 'VIDEO', video_url: link } : { image_url: link });
+const midia = (i) => (eVideo(arquivos[i]) ? { media_type: 'VIDEO', video_url: links[i] } : { image_url: links[i] });
 
 let criacao;
 if (links.length === 1) {
-  const unico = ehVideo ? { media_type: 'REELS', video_url: links[0] } : { image_url: links[0] };
+  const unico = eVideo(arquivos[0]) ? { media_type: 'REELS', video_url: links[0] } : { image_url: links[0] };
   ({ id: criacao } = await instagram(`/${usuario}/media`, { ...unico, caption: legenda }));
 } else {
   console.log('Criando itens do carrossel...');
   const filhos = [];
-  for (const link of links) {
-    const { id } = await instagram(`/${usuario}/media`, { ...midia(link), is_carousel_item: 'true' });
+  for (const i of links.keys()) {
+    const { id } = await instagram(`/${usuario}/media`, { ...midia(i), is_carousel_item: 'true' });
     filhos.push(id);
   }
   for (const id of filhos) await esperarContainer(id);
