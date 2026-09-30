@@ -4,7 +4,8 @@
 //   npm run publicar -- posts/03-o-que-e-claude-code              → modo de teste (não publica nada)
 //   npm run publicar -- posts/03-o-que-e-claude-code --publicar   → publica de verdade
 //
-// Lê as imagens de <post>/slides/*.jpg e a legenda + hashtags do <post>/roteiro.md.
+// Lê a mídia e a legenda + hashtags do <post>/roteiro.md. A mídia vem de <post>/videos/*.mp4
+// (carrossel animado, gerado com npm run videos) ou, se não houver vídeos, de <post>/slides/*.jpg.
 // O repositório é público: a Meta baixa as imagens direto do GitHub (raw.githubusercontent.com),
 // fixadas no commit atual. Por isso os slides precisam estar commitados e enviados (git push) antes.
 //
@@ -50,13 +51,16 @@ const legenda = [blocoDeCodigo(roteiro, 'Legenda'), blocoDeCodigo(roteiro, 'Hash
 if (!legenda) throw new Error('Não encontrei a legenda: o roteiro.md precisa de "## Legenda" com um bloco ```.');
 if (legenda.length > 2200) throw new Error(`Legenda com ${legenda.length} caracteres (máximo do Instagram: 2200).`);
 
-const dirSlides = join(dirPost, 'slides');
-const imagens = (await readdir(dirSlides)).filter((f) => /\.jpe?g$/i.test(f)).sort();
-if (imagens.length === 0) throw new Error(`Nenhum JPEG em ${dirSlides}. Rode antes: npm run slides -- ${pasta}/carrossel.html`);
-if (imagens.length > MAX_ITENS_CARROSSEL) throw new Error(`${imagens.length} imagens; o carrossel aceita até ${MAX_ITENS_CARROSSEL}.`);
+const listar = (dir, padrao) => readdir(dir).then((fs) => fs.filter((f) => padrao.test(f)).sort(), () => []);
+const videos = await listar(join(dirPost, 'videos'), /\.mp4$/i);
+const ehVideo = videos.length > 0;
+const dirMidia = join(dirPost, ehVideo ? 'videos' : 'slides');
+const arquivos = ehVideo ? videos : await listar(dirMidia, /\.jpe?g$/i);
+if (arquivos.length === 0) throw new Error(`Nenhuma mídia em ${dirPost}/videos ou /slides. Rode antes: npm run slides ou npm run videos.`);
+if (arquivos.length > MAX_ITENS_CARROSSEL) throw new Error(`${arquivos.length} arquivos; o carrossel aceita até ${MAX_ITENS_CARROSSEL}.`);
 
 console.log(`Post: ${nomePost}`);
-console.log(`Imagens (${imagens.length}): ${imagens.join(', ')}`);
+console.log(`${ehVideo ? 'Vídeos' : 'Imagens'} (${arquivos.length}): ${arquivos.join(', ')}`);
 console.log(`Legenda (${legenda.length} caracteres):\n${'-'.repeat(40)}\n${legenda}\n${'-'.repeat(40)}`);
 
 // ---------- links públicos no GitHub ----------
@@ -66,18 +70,20 @@ const commit = git('rev-parse', 'HEAD');
 const repo = git('remote', 'get-url', 'origin').match(/github\.com[:/](.+?)(\.git)?$/)?.[1];
 if (!repo) throw new Error('O remote "origin" não aponta para o GitHub.');
 
-const alterados = git('status', '--porcelain', '--', dirSlides);
-if (alterados) throw new Error(`Há slides não commitados em ${dirSlides}. Faça commit e push antes de publicar.`);
+const alterados = git('status', '--porcelain', '--', dirMidia);
+if (alterados) throw new Error(`Há arquivos não commitados em ${dirMidia}. Faça commit e push antes de publicar.`);
 if (!git('branch', '-r', '--contains', commit)) throw new Error(`O commit ${commit.slice(0, 7)} ainda não foi enviado. Rode git push antes de publicar.`);
 
 const raiz = git('rev-parse', '--show-toplevel');
-const links = imagens.map((f) => `https://raw.githubusercontent.com/${repo}/${commit}/${relative(raiz, join(dirSlides, f))}`);
+const links = arquivos.map((f) => `https://raw.githubusercontent.com/${repo}/${commit}/${relative(raiz, join(dirMidia, f))}`);
+// o GitHub entrega .mp4 como application/octet-stream
+const tiposAceitos = ehVideo ? ['video/mp4', 'application/octet-stream'] : ['image/jpeg'];
 
-console.log('\nConferindo os links das imagens...');
+console.log('\nConferindo os links...');
 for (const link of links) {
   const resposta = await fetch(link, { method: 'HEAD' });
   const tipo = resposta.headers.get('content-type') ?? '';
-  if (!resposta.ok || !tipo.startsWith('image/jpeg')) throw new Error(`Imagem indisponível (${resposta.status} ${tipo}): ${link}`);
+  if (!resposta.ok || !tiposAceitos.some((t) => tipo.startsWith(t))) throw new Error(`Arquivo indisponível (${resposta.status} ${tipo}): ${link}`);
   console.log(`  ✓ ${link}`);
 }
 
@@ -111,10 +117,14 @@ async function instagram(caminho, parametros = {}, metodo = 'POST') {
 }
 
 async function esperarContainer(id) {
-  for (let tentativa = 0; tentativa < 30; tentativa++) {
+  // vídeos levam mais tempo para a Meta processar
+  for (let tentativa = 0; tentativa < (ehVideo ? 100 : 30); tentativa++) {
     const { status_code } = await instagram(`/${id}`, { fields: 'status_code' }, 'GET');
     if (status_code === 'FINISHED') return;
-    if (status_code === 'ERROR' || status_code === 'EXPIRED') throw new Error(`Container ${id} falhou: ${status_code}`);
+    if (status_code === 'ERROR' || status_code === 'EXPIRED') {
+      const { status } = await instagram(`/${id}`, { fields: 'status' }, 'GET');
+      throw new Error(`Container ${id} falhou: ${status_code} (${status ?? 'sem detalhes'})`);
+    }
     await new Promise((r) => setTimeout(r, 2000));
   }
   throw new Error(`Container ${id} não ficou pronto a tempo.`);
@@ -130,14 +140,17 @@ if (!publicar) {
   process.exit(0);
 }
 
+const midia = (link) => (ehVideo ? { media_type: 'VIDEO', video_url: link } : { image_url: link });
+
 let criacao;
 if (links.length === 1) {
-  ({ id: criacao } = await instagram(`/${usuario}/media`, { image_url: links[0], caption: legenda }));
+  const unico = ehVideo ? { media_type: 'REELS', video_url: links[0] } : { image_url: links[0] };
+  ({ id: criacao } = await instagram(`/${usuario}/media`, { ...unico, caption: legenda }));
 } else {
   console.log('Criando itens do carrossel...');
   const filhos = [];
   for (const link of links) {
-    const { id } = await instagram(`/${usuario}/media`, { image_url: link, is_carousel_item: 'true' });
+    const { id } = await instagram(`/${usuario}/media`, { ...midia(link), is_carousel_item: 'true' });
     filhos.push(id);
   }
   for (const id of filhos) await esperarContainer(id);
@@ -149,6 +162,6 @@ if (links.length === 1) {
 }
 
 await esperarContainer(criacao);
-const { id: midia } = await instagram(`/${usuario}/media_publish`, { creation_id: criacao });
-const { permalink } = await instagram(`/${midia}`, { fields: 'permalink' }, 'GET');
+const { id: publicado } = await instagram(`/${usuario}/media_publish`, { creation_id: criacao });
+const { permalink } = await instagram(`/${publicado}`, { fields: 'permalink' }, 'GET');
 console.log(`\n✓ Publicado: ${permalink}`);
