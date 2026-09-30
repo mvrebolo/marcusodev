@@ -11,9 +11,10 @@ Como este repositório é **público**, a Meta baixa as imagens direto do GitHub
    - `instagram_business_basic`
    - `instagram_business_content_publish`
 3. **Token:** gere um token de longa duração (válido por 60 dias, renovável).
-4. **Guardar o token:** crie a variável de ambiente `INSTAGRAM_ACCESS_TOKEN`.
-   - Nas sessões do Claude Code na nuvem: menu do ambiente → **Editar** → variáveis de ambiente.
-   - No seu computador: `export INSTAGRAM_ACCESS_TOKEN=...` (nunca coloque o token em um arquivo do repositório).
+4. **Guardar o token:** ele fica no repositório **privado** [`mvrebolo/sc`](https://github.com/mvrebolo/sc), no arquivo `instagram/marcusodev.env`. **Nunca** coloque o token neste repositório, que é público.
+   - O script lê o token de `../sc/instagram/marcusodev.env`, então clone o `sc` na mesma pasta onde está este repositório.
+   - Se a variável de ambiente `INSTAGRAM_ACCESS_TOKEN` existir, ela tem prioridade. Para usar outro caminho, defina `INSTAGRAM_TOKEN_FILE`.
+   - Ao renovar o token (a cada 60 dias), atualize o arquivo no `sc`.
 
 ## Publicar um post
 
@@ -24,7 +25,7 @@ npm run slides -- posts/04-meu-post/carrossel.html
 # 2. commit + push (a Meta baixa as imagens do GitHub)
 git add posts/04-meu-post && git commit -m "Post 04" && git push
 
-# 3. conferir (modo de teste: mostra legenda e links, não publica)
+# 3. conferir (modo de teste: mostra legenda, links e a conta; não publica)
 npm run publicar -- posts/04-meu-post
 
 # 4. publicar de verdade

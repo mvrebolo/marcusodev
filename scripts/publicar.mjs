@@ -8,11 +8,13 @@
 // O repositório é público: a Meta baixa as imagens direto do GitHub (raw.githubusercontent.com),
 // fixadas no commit atual. Por isso os slides precisam estar commitados e enviados (git push) antes.
 //
-// Variáveis de ambiente (configure no ambiente, nunca no código):
-//   INSTAGRAM_ACCESS_TOKEN     token da API do Instagram (permissão instagram_business_content_publish)
-//   INSTAGRAM_API_VERSION      opcional, padrão "v23.0"
+// Token (nunca neste repositório, que é público):
+//   1. variável de ambiente INSTAGRAM_ACCESS_TOKEN, se existir;
+//   2. senão, o arquivo instagram/marcusodev.env do repositório privado mvrebolo/sc,
+//      clonado ao lado deste (../sc) ou no caminho de INSTAGRAM_TOKEN_FILE.
+// Opcional: INSTAGRAM_API_VERSION (padrão "v23.0").
 import { readdir, readFile } from 'node:fs/promises';
-import { basename, join, relative, resolve } from 'node:path';
+import { basename, dirname, join, relative, resolve } from 'node:path';
 import { execFileSync } from 'node:child_process';
 
 process.on('uncaughtException', (erro) => {
@@ -79,21 +81,21 @@ for (const link of links) {
   console.log(`  ✓ ${link}`);
 }
 
-if (!publicar) {
-  console.log('\nModo de teste: nada foi publicado. Para publicar, rode de novo com --publicar.');
-  process.exit(0);
+// ---------- token ----------
+
+async function lerToken() {
+  if (process.env.INSTAGRAM_ACCESS_TOKEN) return process.env.INSTAGRAM_ACCESS_TOKEN;
+  const arquivo = process.env.INSTAGRAM_TOKEN_FILE ?? join(dirname(raiz), 'sc', 'instagram', 'marcusodev.env');
+  const conteudo = await readFile(arquivo, 'utf8').catch(() => {
+    throw new Error(`Token não encontrado: defina INSTAGRAM_ACCESS_TOKEN ou clone mvrebolo/sc em ${join(dirname(raiz), 'sc')}.`);
+  });
+  const token = conteudo.match(/^INSTAGRAM_ACCESS_TOKEN=(.+)$/m)?.[1]?.trim();
+  if (!token) throw new Error(`INSTAGRAM_ACCESS_TOKEN não encontrado em ${arquivo}.`);
+  return token;
 }
 
-// ---------- configuração ----------
-
-function variavel(nome, padrao) {
-  const valor = process.env[nome] ?? padrao;
-  if (!valor) throw new Error(`Variável de ambiente ${nome} não configurada.`);
-  return valor;
-}
-
-const token = variavel('INSTAGRAM_ACCESS_TOKEN');
-const graph = `https://graph.instagram.com/${variavel('INSTAGRAM_API_VERSION', 'v23.0')}`;
+const token = await lerToken();
+const graph = `https://graph.instagram.com/${process.env.INSTAGRAM_API_VERSION ?? 'v23.0'}`;
 
 // ---------- API do Instagram ----------
 
@@ -121,7 +123,12 @@ async function esperarContainer(id) {
 // ---------- publicação ----------
 
 const { user_id: usuario, username } = await instagram('/me', { fields: 'user_id,username' }, 'GET');
-console.log(`\nConta: @${username}`);
+console.log(`\nConta: @${username} (token válido)`);
+
+if (!publicar) {
+  console.log('\nModo de teste: nada foi publicado. Para publicar, rode de novo com --publicar.');
+  process.exit(0);
+}
 
 let criacao;
 if (links.length === 1) {

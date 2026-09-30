@@ -4,9 +4,13 @@
 
 ![Painel da marca](marca/painel-da-marca.png)
 
-Central de conteúdo do meu Instagram sobre **programação, LLMs, projetos reais e Claude Code**.
+Central de conteúdo aberta do meu Instagram sobre **programação, LLMs, projetos reais e Claude Code**.
 
 **Objetivo:** ajudar a galera a construir projetos de verdade com IA, ganhar audiência e, no futuro, vender cursos de como criar projetos usando Claude Code.
+
+## Material aberto
+
+Tudo aqui é aberto para a galera usar e se inspirar: o [manual da marca](marca/manual-da-marca.md) com a paleta e as fontes, os [logos](marca/logo/), o [template HTML de carrossel](templates/carrossel/) e os scripts que geram e publicam os posts.
 
 ## Estrutura
 
