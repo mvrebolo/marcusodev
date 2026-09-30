@@ -15,9 +15,9 @@ Central de conteúdo do meu Instagram sobre **programação, LLMs, projetos reai
 | [`marca/`](marca/) | [Manual da marca](marca/manual-da-marca.md), logo, [painel visual](marca/painel-da-marca.png), bio e público |
 | [`estrategia/`](estrategia/) | Pilares de conteúdo e funil até a venda dos cursos |
 | [`calendario/`](calendario/) | Planejamento mês a mês |
-| [`posts/`](posts/) | Uma pasta por post: `roteiro.md`, `carrossel.html` e os PNGs em `slides/` |
+| [`posts/`](posts/) | Uma pasta por post: `roteiro.md`, `carrossel.html` e as imagens em `slides/` |
 | [`templates/`](templates/) | Modelo de roteiro e [template HTML dos carrosséis](templates/carrossel/) |
-| [`scripts/`](scripts/) | Gerador dos PNGs dos slides |
+| [`scripts/`](scripts/) | Geração dos slides e [publicação no Instagram](docs/publicar-no-instagram.md) |
 
 ## Fluxo de trabalho
 
@@ -25,5 +25,5 @@ Central de conteúdo do meu Instagram sobre **programação, LLMs, projetos reai
 2. Criar a pasta `posts/NN-tema/` com o [roteiro](templates/post.md) e, se for carrossel, o [HTML do carrossel](templates/carrossel/).
 3. Escrever o gancho, o roteiro e a legenda.
 4. Gerar as artes com `npm run slides -- posts/NN-tema/carrossel.html` (ou gravar o vídeo, se for Reel).
-5. Publicar e marcar como ✅ no calendário.
+5. Fazer commit e push, conferir com `npm run publicar -- posts/NN-tema` e publicar com `--publicar` (veja [como publicar](docs/publicar-no-instagram.md)). Marcar como ✅ no calendário.
 6. Anotar as métricas depois de 7 dias (alcance, salvamentos, compartilhamentos, comentários e seguidores ganhos).

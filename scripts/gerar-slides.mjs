@@ -1,7 +1,7 @@
-// Gera um PNG 1080×1350 para cada slide de um carrossel.
+// Gera um JPEG 1080×1350 para cada slide de um carrossel (formato exigido pela API do Instagram).
 //
 // Uso:  npm run slides -- posts/03-o-que-e-claude-code/carrossel.html
-// Saída: posts/03-o-que-e-claude-code/slides/01.png, 02.png, ...
+// Saída: posts/03-o-que-e-claude-code/slides/01.jpg, 02.jpg, ...
 //
 // Se o Playwright não encontrar o navegador, rode "npx playwright install chromium"
 // ou aponte para um Chrome já instalado com a variável CHROME_PATH.
@@ -32,8 +32,8 @@ await rm(saida, { recursive: true, force: true });
 await mkdir(saida, { recursive: true });
 
 for (const [i, slide] of slides.entries()) {
-  const nome = `${String(i + 1).padStart(2, '0')}.png`;
-  await slide.screenshot({ path: join(saida, nome) });
+  const nome = `${String(i + 1).padStart(2, '0')}.jpg`;
+  await slide.screenshot({ path: join(saida, nome), type: 'jpeg', quality: 95 });
   console.log(`✓ ${join(saida, nome)}`);
 }
 

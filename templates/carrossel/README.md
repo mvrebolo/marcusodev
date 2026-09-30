@@ -12,7 +12,7 @@ cp templates/post.md posts/04-meu-post/roteiro.md
 
 Edite o `carrossel.html` e abra no navegador para ver a prévia.
 
-## Gerar os PNGs
+## Gerar as imagens
 
 Na primeira vez:
 ```bash
@@ -25,7 +25,7 @@ Depois, a cada post:
 npm run slides -- posts/04-meu-post/carrossel.html
 ```
 
-Os PNGs ficam em `posts/04-meu-post/slides/`, prontos para subir no Instagram.
+Os JPEGs (formato exigido pela API do Instagram) ficam em `posts/04-meu-post/slides/`, prontos para subir no Instagram.
 
 > Já tem o Chrome instalado? Pule o `playwright install` e use a variável `CHROME_PATH`, por exemplo:
 > `CHROME_PATH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run slides -- ...`
