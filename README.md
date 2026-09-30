@@ -22,6 +22,7 @@ Tudo aqui é aberto para a galera usar e se inspirar: o [manual da marca](marca/
 | [`posts/`](posts/) | Uma pasta por post: `roteiro.md`, `carrossel.html` e as imagens em `slides/` |
 | [`templates/`](templates/) | Modelo de roteiro e [template HTML dos carrosséis](templates/carrossel/) |
 | [`scripts/`](scripts/) | Geração dos slides e [publicação no Instagram](docs/publicar-no-instagram.md) |
+| [`video/`](video/) | [Carrossel animado com Remotion](video/README.md): slides em vídeo com som |
 
 ## Fluxo de trabalho
 
