@@ -14,7 +14,7 @@
    - 🤖 Claude Code e LLMs na prática
    - 💡 Dicas rápidas de programação
    - 🧑‍💻 Os bastidores (inclusive os erros)
-6. Todo domingo tem o **Projeto da semana**, com o código no GitHub.
+6. Projetos completos com o código aberto no **GitHub**, postados quando ficam prontos (sem dia fixo).
 7. **CTA:** "Me segue e comenta qual projeto você quer tirar do papel 👇"
 
 ## Legenda
@@ -25,7 +25,7 @@ Criei este perfil para mostrar, sem enrolação, como construir projetos de verd
 
 Nada de "a IA vai fazer tudo sozinha". Aqui é mão na massa: código, erros, acertos e projeto rodando.
 
-Comenta aqui embaixo: qual projeto você quer tirar do papel? Posso transformar o seu no próximo Projeto da semana 👀
+Comenta aqui embaixo: qual projeto você quer tirar do papel? Posso transformar o seu num projeto aqui no perfil 👀
 ```
 
 ## Hashtags

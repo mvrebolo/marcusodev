@@ -27,7 +27,7 @@ Para ver e ajustar ao vivo no navegador: `npx remotion studio video/index.ts`.
 | `capa` | `etiqueta?`, `titulo`, `comentario?` |
 | `texto` | `etiqueta?`, `titulo`, `texto?`, `apoio?` (cinza) |
 | `lista` | `etiqueta?`, `titulo`, `itens` |
-| `terminal` | `titulo?`, `barra?`, `linhas` (`{ t, tipo?: 'prompt' \| 'comentario' \| 'ok' \| 'erro' }`), `texto?` |
+| `terminal` | `titulo?`, `barra?`, `linhas` (`{ t, tipo?: 'prompt' \| 'saida' \| 'comentario' \| 'ok' \| 'erro' }` (`saida`, `ok` e `erro` aparecem de uma vez; o resto é digitado)), `texto?` |
 | `comparacao` | `ruim: { titulo, texto }`, `bom: { titulo, texto }` |
 | `aviso` | `titulo`, `texto` |
 | `cta` | `titulo`, `texto?`, `botao` |

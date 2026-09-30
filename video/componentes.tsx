@@ -139,7 +139,7 @@ const Etiqueta: React.FC<{ texto: string }> = ({ texto }) => (
 function tempoDasLinhas(linhas: Linha[], inicio: number) {
   let t = inicio;
   return linhas.map((linha) => {
-    const digitada = linha.tipo !== 'ok' && linha.tipo !== 'erro';
+    const digitada = linha.tipo !== 'ok' && linha.tipo !== 'erro' && linha.tipo !== 'saida';
     const comeco = t;
     t += (digitada ? linha.t.length / VELOCIDADE_DIGITACAO : 4) + PAUSA_LINHA;
     return { comeco, digitada };
@@ -155,7 +155,7 @@ const fimDoTerminal = (linhas: Linha[], inicio: number) => {
 const Terminal: React.FC<{ linhas: Linha[]; barra?: string; inicio: number }> = ({ linhas, barra, inicio }) => {
   const frame = useCurrentFrame();
   const tempos = tempoDasLinhas(linhas, inicio);
-  const corDaLinha = { comentario: cor.cinza, ok: cor.verde, erro: cor.vermelho, prompt: cor.papel } as const;
+  const corDaLinha = { comentario: cor.cinza, ok: cor.verde, erro: cor.vermelho, prompt: cor.papel, saida: cor.papel } as const;
   const atual = tempos.findLastIndex((t) => frame >= t.comeco);
 
   // um clique de tecla a cada 2 caracteres digitados; saídas (✓ / ✗) fazem "pop"

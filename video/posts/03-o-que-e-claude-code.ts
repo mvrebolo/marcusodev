@@ -40,7 +40,7 @@ const post: Post = {
     },
     { tipo: 'lista', etiqueta: 'Plan mode', titulo: 'Primeiro o plano, depois o código', itens: ['Ele analisa e propõe um plano', 'Você revisa e aprova', 'Só então ele executa'] },
     { tipo: 'aviso', titulo: '⚠️ Mas atenção', texto: 'Ele também erra. *Revisar o código* continua sendo o seu trabalho.' },
-    { tipo: 'cta', titulo: 'Salva esse post 📌', texto: 'Essa semana vou construir um projeto do zero com ele.', botao: 'Me segue' },
+    { tipo: 'cta', titulo: 'Salva esse post 📌', texto: 'Me segue para ver projetos reais feitos com ele.', botao: 'Me segue' },
   ],
 };
 

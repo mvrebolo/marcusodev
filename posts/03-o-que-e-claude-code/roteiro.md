@@ -16,7 +16,7 @@
 5. **CLAUDE.md:** um arquivo onde você explica seu projeto, e ele lembra disso em toda sessão.
 6. **Plan mode:** ele planeja antes de sair mexendo. Você aprova e só então ele executa.
 7. **Mas atenção ⚠️:** ele erra também. Revisar o código continua sendo seu trabalho.
-8. **CTA:** "Salva esse post e me segue: essa semana vou construir um projeto do zero com ele."
+8. **CTA:** "Salva esse post e me segue para ver projetos reais feitos com ele."
 
 ## Legenda
 ```

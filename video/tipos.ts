@@ -1,6 +1,6 @@
 // Descrição dos slides animados. Em títulos e textos, *palavras entre asteriscos* ficam em laranja.
 
-export type Linha = { t: string; tipo?: 'prompt' | 'comentario' | 'ok' | 'erro' };
+export type Linha = { t: string; tipo?: 'prompt' | 'saida' | 'comentario' | 'ok' | 'erro' };
 
 export type Slide =
   | { tipo: 'capa'; etiqueta?: string; titulo: string; comentario?: string }
