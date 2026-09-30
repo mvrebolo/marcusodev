@@ -12,7 +12,7 @@
 ```
 Marcus | Dev + IA 🤖
 Construindo projetos reais com Claude Code e LLMs
-Tutoriais práticos toda semana 👇
+Tutoriais e projetos práticos 👇
 ```
 
 **Opção 2: foco em ajudar**

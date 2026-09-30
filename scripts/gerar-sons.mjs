@@ -53,18 +53,10 @@ const acorde = sinal(1.8, (t) =>
     .reduce((a, b) => a + b, 0) * 0.24 * Math.min(1, t / 0.01),
 );
 
-// base ambiente de 8 s que emenda sem corte (frequências com número inteiro de ciclos em 8 s)
-const ambiente = sinal(8, (t) => {
-  const notas = [110, 164.75, 220, 277.25, 329.625];
-  const pulso = 0.75 + 0.25 * Math.sin((2 * Math.PI * t) / 8);
-  const som = notas.reduce((a, f, i) => a + Math.sin(2 * Math.PI * f * t + i) / (i + 1), 0);
-  return 0.12 * pulso * som;
-});
-
 await mkdir(DIR, { recursive: true });
 const sons = {
   'tecla-1': tecla(7, 180), 'tecla-2': tecla(42, 210), 'tecla-3': tecla(99, 160),
-  tic, pop, acorde, ambiente,
+  tic, pop, acorde,
 };
 for (const [nome, amostras] of Object.entries(sons)) {
   await writeFile(`${DIR}/${nome}.wav`, wav(amostras));

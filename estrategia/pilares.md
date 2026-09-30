@@ -20,7 +20,7 @@ A proporção indica quanto do conteúdo semanal vai para cada pilar.
 
 - **4 posts por semana:** 2 Reels e 2 carrosséis.
 - **Stories:** todo dia, de 3 a 5.
-- **Série fixa:** "Projeto da semana". Todo domingo, um projeto completo com o repositório no GitHub.
+- **Projetos novos:** sem dia fixo. Quando um projeto ficar pronto, ele vira post (com o repositório no GitHub). Sem promessa de frequência.
 
 ## Fórmulas de gancho
 

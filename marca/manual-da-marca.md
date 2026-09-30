@@ -16,7 +16,7 @@
 1. **Prática antes de teoria:** todo conteúdo mostra algo funcionando.
 2. **Honestidade:** mostrar os erros e os limites da IA, sem hype.
 3. **Generosidade:** ensinar de graça o suficiente para a pessoa conseguir sozinha.
-4. **Consistência:** aparecer toda semana, sempre no mesmo padrão.
+4. **Consistência:** manter o mesmo padrão visual e de qualidade em todo post.
 
 ### Arquétipo
 **O Mentor-Construtor:** um dev que está um passo à frente, constrói em público e puxa a galera junto. Não é o guru inalcançável, é o amigo que manja.

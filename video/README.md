@@ -5,8 +5,9 @@ Cada slide do carrossel vira um vídeo curto (1080×1350, cerca de 5 s) com as a
 - títulos entrando palavra por palavra, com um "tic" suave em cada palavra;
 - comandos **digitados no terminal**, com som de teclado;
 - listas, comparações ✗/✓ e avisos surgindo com um "pop";
-- o símbolo `>_` se desenhando no último slide, com um acorde no botão;
-- uma base ambiente bem baixa ao fundo.
+- o símbolo `>_` se desenhando no último slide, com um acorde no botão.
+
+Não há música ou base contínua de fundo: cada slide é um vídeo separado, e o som recomeçaria a cada troca de slide.
 
 Os sons são sintetizados por código (`npm run sons`), sem samples de terceiros. As fontes ficam em `public/fonts` (licença OFL).
 

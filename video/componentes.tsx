@@ -22,17 +22,6 @@ const Som: React.FC<{ em: number; nome: NomeDoSom; volume?: number }> = ({ em, n
   </Sequence>
 );
 
-const Ambiente: React.FC = () => {
-  const { durationInFrames } = useVideoConfig();
-  return (
-    <Audio
-      src={staticFile('sons/ambiente.wav')}
-      loop
-      volume={(f) => interpolate(f, [0, 12, durationInFrames - 12, durationInFrames], [0, 0.9, 0.9, 0], { extrapolateRight: 'clamp' })}
-    />
-  );
-};
-
 // ---------- texto com *destaque* ----------
 
 type Palavra = { p: string; destaque: boolean };
@@ -216,7 +205,6 @@ const Moldura: React.FC<{ numero: number; total: number; centro?: boolean; child
   const dois = (n: number) => String(n).padStart(2, '0');
   return (
     <AbsoluteFill style={{ background: cor.terminal, color: cor.papel, fontFamily: sans }}>
-      <Ambiente />
       {numero === 1 && (
         <div
           style={{
