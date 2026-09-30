@@ -4,9 +4,17 @@
   "type": "module",
   "scripts": {
     "slides": "node scripts/gerar-slides.mjs",
-    "publicar": "node scripts/publicar.mjs"
+    "publicar": "node scripts/publicar.mjs",
+    "videos": "node scripts/gerar-videos.mjs",
+    "sons": "node scripts/gerar-sons.mjs"
   },
   "devDependencies": {
-    "playwright": "^1.56.0"
+    "@remotion/bundler": "^4.0.530",
+    "@remotion/cli": "^4.0.530",
+    "@remotion/renderer": "^4.0.530",
+    "playwright": "^1.56.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "remotion": "^4.0.530"
   }
 }
