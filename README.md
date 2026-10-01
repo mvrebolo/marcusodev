@@ -16,7 +16,7 @@ Tudo aqui é aberto para a galera usar e se inspirar: o [manual da marca](marca/
 
 | Pasta | O que tem |
 |---|---|
-| [`marca/`](marca/) | [Manual da marca](marca/manual-da-marca.md), logo, [painel visual](marca/painel-da-marca.png), bio e público |
+| [`marca/`](marca/) | [Manual da marca](marca/manual-da-marca.md), logo, [painel visual](marca/painel-da-marca.png), [intro e fechamento em vídeo](marca/vinhetas/), bio e público |
 | [`estrategia/`](estrategia/) | Pilares de conteúdo e funil até a venda dos cursos |
 | [`calendario/`](calendario/) | Planejamento mês a mês |
 | [`posts/`](posts/) | Uma pasta por post: `roteiro.md`, `carrossel.html` e as imagens em `slides/` |

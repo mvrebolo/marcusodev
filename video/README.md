@@ -33,3 +33,12 @@ Para ver e ajustar ao vivo no navegador: `npx remotion studio video/index.ts`.
 | `cta` | `titulo`, `texto?`, `botao` |
 
 > Sem o Chrome do Remotion instalado, aponte para um Chrome headless com `CHROME_PATH`.
+
+## Intro e fechamento da marca
+
+Vinhetas de 5 s que abrem e fecham os vídeos (Reels, tutoriais, YouTube), no mesmo padrão das vinhetas do BetMind10:
+
+- **Intro:** moldura de painel técnico → ponto → anel → **partículas que formam o `>_`** → logo `> marcusodev_` entrando com linhas de velocidade → sublinhado → "Do prompt ao *deploy*."
+- **Fechamento:** partículas formam o `>_` → `@marcusodev` → frase → pílulas *Claude Code · IA · Projetos reais* → botão **Me segue →**
+
+Gere com `npm run vinhetas`. Os arquivos ficam em `marca/vinhetas/` (`intro-9x16.mp4`, `intro-16x9.mp4`, `fechamento-9x16.mp4`, `fechamento-16x9.mp4`). Para usar, coloque a intro no começo e o fechamento no fim do vídeo no editor.

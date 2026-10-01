@@ -53,10 +53,22 @@ const acorde = sinal(1.8, (t) =>
     .reduce((a, b) => a + b, 0) * 0.24 * Math.min(1, t / 0.01),
 );
 
+// whoosh: ruído com filtro que abre e fecha (passagem rápida, para transições)
+const whoosh = (() => {
+  const r = ruido(2024);
+  let filtrado = 0;
+  return sinal(0.6, (t) => {
+    const forma = Math.sin(Math.PI * Math.min(1, t / 0.6)) ** 2; // sobe e desce
+    const abertura = 0.02 + 0.25 * forma; // filtro passa-baixas que abre no meio
+    filtrado += abertura * (r() - filtrado);
+    return 1.6 * filtrado * forma;
+  });
+})();
+
 await mkdir(DIR, { recursive: true });
 const sons = {
   'tecla-1': tecla(7, 180), 'tecla-2': tecla(42, 210), 'tecla-3': tecla(99, 160),
-  tic, pop, acorde,
+  tic, pop, acorde, whoosh,
 };
 for (const [nome, amostras] of Object.entries(sons)) {
   await writeFile(`${DIR}/${nome}.wav`, wav(amostras));
