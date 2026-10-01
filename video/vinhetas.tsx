@@ -268,8 +268,8 @@ export const Fechamento: React.FC = () => {
         {frame >= 42 && <Frase texto={CHAMADA} inicio={42} tamanho={(vertical ? 54 : 40) * s} larguraMaxima={(vertical ? 860 : 1100) * s} />}
         <div style={{ display: 'flex', gap: 16 * s, marginTop: 8 * s }}>
           <Pilula texto="Dev com IA" inicio={64} />
-          <Pilula texto="Agentes de IA" inicio={69} />
-          <Pilula texto="SaaS" inicio={74} />
+          <Pilula texto="SaaS" inicio={69} />
+          <Pilula texto="Bastidores" inicio={74} />
         </div>
         <div
           style={{
