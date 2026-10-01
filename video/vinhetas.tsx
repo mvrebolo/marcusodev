@@ -42,7 +42,7 @@ const Moldura: React.FC<{ secao: string }> = ({ secao }) => {
     <AbsoluteFill style={{ opacity: interpolate(frame, [0, 10], [0, 0.9], limitar) }}>
       {[true, false].flatMap((top) => [true, false].map((left) => <div key={`${top}${left}`} style={canto(top, left)} />))}
       <span style={{ ...texto, top: m + 4 * s, left: m + t + 14 * s }}>
-        <b style={{ color: cor.papel }}>marcusodev</b> · do prompt ao deploy
+        <b style={{ color: cor.papel }}>marcusodev</b> · projetos reais com IA
       </span>
       <span style={{ ...texto, top: m + 4 * s, right: m + t + 14 * s }}>{secao}</span>
       <span style={{ ...texto, bottom: m + 4 * s, left: m + t + 14 * s }}>{tempo}</span>
@@ -179,14 +179,15 @@ const Logotipo: React.FC<{ inicio: number; tamanho: number }> = ({ inicio, taman
   );
 };
 
-const Frase: React.FC<{ inicio: number; tamanho: number }> = ({ inicio, tamanho }) => {
+// frase entrando palavra por palavra; *palavras entre asteriscos* ficam em laranja
+const Frase: React.FC<{ texto: string; inicio: number; tamanho: number; larguraMaxima?: number }> = ({ texto, inicio, tamanho, larguraMaxima }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const palavras = [{ p: 'Do' }, { p: 'prompt' }, { p: 'ao' }, { p: 'deploy.', destaque: true }];
+  const palavras = texto.split('*').flatMap((trecho, i) => trecho.split(/\s+/).filter(Boolean).map((p) => ({ p, destaque: i % 2 === 1 })));
   return (
-    <div style={{ font: `400 ${tamanho}px ${sans}`, color: cor.papel, whiteSpace: 'nowrap' }}>
+    <div style={{ font: `400 ${tamanho}px/1.3 ${sans}`, color: cor.papel, textAlign: 'center', maxWidth: larguraMaxima, whiteSpace: larguraMaxima ? 'normal' : 'nowrap' }}>
       {palavras.map((w, i) => {
-        const k = spring({ frame: frame - inicio - i * 5, fps, config: { damping: 200 } });
+        const k = spring({ frame: frame - inicio - i * 4, fps, config: { damping: 200 } });
         return (
           <span key={i} style={{ display: 'inline-block', marginRight: '0.3em', opacity: k, transform: `translateY(${(1 - k) * 20}px)`, color: w.destaque ? cor.laranja : undefined, fontWeight: w.destaque ? 600 : 400 }}>
             {w.p}
@@ -204,6 +205,9 @@ const Escurece: React.FC<{ apartir: number }> = ({ apartir }) => {
 
 // ---------- intro ----------
 
+const ASSINATURA = 'Projetos *reais* com IA.';
+const CHAMADA = 'Aprenda comigo a criar projetos reais que *geram valor.*';
+
 export const Intro: React.FC = () => {
   const s = useEscala();
   const frame = useCurrentFrame();
@@ -218,14 +222,14 @@ export const Intro: React.FC = () => {
       </AbsoluteFill>
       <AbsoluteFill style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 30 * s }}>
         {frame >= LOGO && <Logotipo inicio={LOGO} tamanho={104 * s} />}
-        {frame >= LOGO + 16 && <Frase inicio={LOGO + 16} tamanho={58 * s} />}
+        {frame >= LOGO + 16 && <Frase texto={ASSINATURA} inicio={LOGO + 16} tamanho={58 * s} />}
       </AbsoluteFill>
       <Moldura secao="01 · intro" />
       <Escurece apartir={DURACAO_VINHETA - 8} />
       <Som em={4} nome="pop" volume={0.8} />
       <Som em={26} nome="whoosh" volume={0.9} />
       <Som em={LOGO - 4} nome="whoosh" volume={1} />
-      {[0, 1, 2, 3].map((i) => <Som key={i} em={LOGO + 16 + i * 5} nome="tic" volume={0.6} />)}
+      {[0, 1, 2, 3].map((i) => <Som key={i} em={LOGO + 16 + i * 4} nome="tic" volume={0.6} />)}
       <Som em={LOGO + 34} nome="acorde" volume={0.9} />
     </AbsoluteFill>
   );
@@ -251,8 +255,8 @@ export const Fechamento: React.FC = () => {
   const { fps, width, height } = useVideoConfig();
   const vertical = height > width;
   const k = (inicio: number) => spring({ frame: frame - inicio, fps, config: { damping: 200 } });
-  const botao = spring({ frame: frame - 78, fps, config: { damping: 10 } });
-  const pulso = frame > 95 ? 1 + 0.04 * Math.sin((frame - 95) / 4) : 1;
+  const botao = spring({ frame: frame - 84, fps, config: { damping: 10 } });
+  const pulso = frame > 100 ? 1 + 0.04 * Math.sin((frame - 100) / 4) : 1;
   return (
     <AbsoluteFill style={{ fontFamily: sans }}>
       <Fundo />
@@ -261,11 +265,11 @@ export const Fechamento: React.FC = () => {
         <div style={{ opacity: k(30), transform: `translateY(${(1 - k(30)) * 30}px)`, font: `700 ${(vertical ? 96 : 76) * s}px ${mono}`, letterSpacing: -2 * s, color: cor.papel }}>
           @marcusodev
         </div>
-        {frame >= 42 && <Frase inicio={42} tamanho={(vertical ? 54 : 40) * s} />}
+        {frame >= 42 && <Frase texto={CHAMADA} inicio={42} tamanho={(vertical ? 54 : 40) * s} larguraMaxima={(vertical ? 860 : 1100) * s} />}
         <div style={{ display: 'flex', gap: 16 * s, marginTop: 8 * s }}>
-          <Pilula texto="Claude Code" inicio={58} />
-          <Pilula texto="IA" inicio={63} />
-          <Pilula texto="Projetos reais" inicio={68} />
+          <Pilula texto="Dev com IA" inicio={64} />
+          <Pilula texto="Agentes de IA" inicio={69} />
+          <Pilula texto="SaaS" inicio={74} />
         </div>
         <div
           style={{
@@ -280,8 +284,9 @@ export const Fechamento: React.FC = () => {
       <Escurece apartir={DURACAO_VINHETA - 10} />
       <Som em={0} nome="whoosh" volume={0.9} />
       <Som em={30} nome="tic" volume={0.6} />
-      {[58, 63, 68].map((f) => <Som key={f} em={f} nome="pop" volume={0.8} />)}
-      <Som em={78} nome="acorde" volume={0.9} />
+      {Array.from({ length: 9 }, (_, i) => <Som key={`t${i}`} em={42 + i * 4} nome="tic" volume={0.4} />)}
+      {[64, 69, 74].map((f) => <Som key={f} em={f} nome="pop" volume={0.8} />)}
+      <Som em={84} nome="acorde" volume={0.9} />
     </AbsoluteFill>
   );
 };

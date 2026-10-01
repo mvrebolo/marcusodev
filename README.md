@@ -1,6 +1,6 @@
 # @marcusodev — Instagram profissional
 
-> **Do prompt ao deploy.**
+> **Projetos reais com IA.**
 
 ![Painel da marca](marca/painel-da-marca.png)
 

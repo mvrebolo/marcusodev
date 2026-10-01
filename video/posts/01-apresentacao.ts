@@ -11,7 +11,7 @@ const post: Post = {
       linhas: [
         { t: 'whoami', tipo: 'prompt' },
         { t: 'marcusodev', tipo: 'saida' },
-        { t: '// do prompt ao deploy', tipo: 'comentario' },
+        { t: '// projetos reais com IA', tipo: 'comentario' },
       ],
       texto: 'Dev apaixonado por programação e *IA*.',
     },

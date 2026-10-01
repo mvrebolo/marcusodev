@@ -6,11 +6,12 @@
 |---|---|
 | **Nome** | marcusodev (lê-se "Marcus, o dev") |
 | **Handle** | `@marcusodev` (usar o mesmo em todas as redes: Instagram, GitHub, YouTube, TikTok, X) |
-| **Tagline** | **Do prompt ao deploy.** |
+| **Tagline** | **Projetos reais com IA.** |
+| **Chamada** | Aprenda comigo a criar projetos reais que geram valor. |
 | **Propósito** | Mostrar que qualquer pessoa pode construir projetos reais usando programação e IA. |
 | **Promessa** | Aqui tem projeto rodando, não teoria solta. |
 
-**Taglines alternativas:** "Código real. IA de verdade." · "Projetos reais com IA, sem enrolação."
+**Taglines alternativas:** "Código real. IA de verdade." · "Do prompt ao deploy." (a anterior)
 
 ### Valores
 1. **Prática antes de teoria:** todo conteúdo mostra algo funcionando.
@@ -109,5 +110,5 @@ As duas fontes são gratuitas no [Google Fonts](https://fonts.google.com).
 **Bordões:**
 - "Bora codar."
 - "Sem enrolação."
-- "Do prompt ao deploy."
+- "Projetos reais com IA."
 - Encerramento dos Reels: "Me segue que amanhã tem mais. `> marcusodev_`"
