@@ -11,6 +11,11 @@ Legenda: 🎬 Reel · 🖼️ Carrossel · ✅ publicado
 | Qua | 🎬 | [Criei um app em 10 minutos com Claude Code](../posts/02-reel-app-10-minutos/roteiro.md) | |
 | Sex | 🖼️ | [O que é Claude Code e por que é diferente de um chat de IA](../posts/03-o-que-e-claude-code/roteiro.md) | ✅ [ver post](https://www.instagram.com/p/Dd5YRHBgB_o/) (animado) |
 
+## Extra: apresentação em vídeo
+| Dia | Formato | Tema | Status |
+|---|---|---|---|
+| A definir | 🎬 | [Quem sou eu: os projetos que eu criei com IA](../posts/04-quem-sou-eu-projetos/roteiro.md) | roteiro pronto, falta gravar |
+
 ## Semana 2: fundamentos
 | Dia | Formato | Tema | Status |
 |---|---|---|---|
