@@ -7,7 +7,8 @@
     "publicar": "node scripts/publicar.mjs",
     "videos": "node scripts/gerar-videos.mjs",
     "sons": "node scripts/gerar-sons.mjs",
-    "vinhetas": "node scripts/gerar-vinhetas.mjs"
+    "vinhetas": "node scripts/gerar-vinhetas.mjs",
+    "obvio": "node scripts/gerar-quadro.mjs"
   },
   "devDependencies": {
     "@remotion/bundler": "^4.0.530",

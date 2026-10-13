@@ -4,6 +4,7 @@ import { SlideAnimado, duracaoDoSlide } from './componentes';
 import { ALTURA, FPS, LARGURA } from './marca';
 import { posts } from './posts';
 import { DURACAO_VINHETA, Fechamento, Intro } from './vinhetas';
+import { AprendeOObvio, DURACAO_DEMO } from './aprende-o-obvio';
 
 const FORMATOS = [
   { nome: '9x16', width: 1080, height: 1920 },
@@ -32,5 +33,15 @@ export const Root: React.FC = () => (
       <Composition key={`intro-${nome}`} id={`intro-${nome}`} component={Intro} durationInFrames={DURACAO_VINHETA} fps={FPS} width={width} height={height} />,
       <Composition key={`fechamento-${nome}`} id={`fechamento-${nome}`} component={Fechamento} durationInFrames={DURACAO_VINHETA} fps={FPS} width={width} height={height} />,
     ])}
+    {/* quadro "Aprende o Óbvio" (9:16) */}
+    <Composition
+      id="aprende-o-obvio"
+      component={AprendeOObvio}
+      defaultProps={{ episodio: 1, titulo: 'como instalar uma skill' }}
+      durationInFrames={DURACAO_DEMO}
+      fps={FPS}
+      width={1080}
+      height={1920}
+    />
   </>
 );

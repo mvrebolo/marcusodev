@@ -6,11 +6,14 @@ const LATIN = 'U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+
 const LATIN_EXT = 'U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF';
 
 const fontes = [
-  { familia: 'JetBrains Mono', arquivo: 'jetbrains-mono', pesos: '400 700' },
-  { familia: 'Inter', arquivo: 'inter', pesos: '400 600' },
-].flatMap(({ familia, arquivo, pesos }) => [
-  new FontFace(familia, `url(${staticFile(`fonts/${arquivo}-latin.woff2`)})`, { weight: pesos, unicodeRange: LATIN }),
-  new FontFace(familia, `url(${staticFile(`fonts/${arquivo}-latin-ext.woff2`)})`, { weight: pesos, unicodeRange: LATIN_EXT }),
+  { familia: 'JetBrains Mono', arquivo: 'jetbrains-mono', opcoes: { weight: '400 700' } },
+  { familia: 'Inter', arquivo: 'inter', opcoes: { weight: '400 600' } },
+  // quadro "Aprende o Óbvio": letra larga e pesada + serifa itálica
+  { familia: 'Archivo', arquivo: 'archivo-larga', opcoes: { weight: '900', stretch: '125%' } },
+  { familia: 'Instrument Serif', arquivo: 'instrument-serif-italico', opcoes: { style: 'italic' } },
+].flatMap(({ familia, arquivo, opcoes }) => [
+  new FontFace(familia, `url(${staticFile(`fonts/${arquivo}-latin.woff2`)})`, { ...opcoes, unicodeRange: LATIN }),
+  new FontFace(familia, `url(${staticFile(`fonts/${arquivo}-latin-ext.woff2`)})`, { ...opcoes, unicodeRange: LATIN_EXT }),
 ]);
 
 const espera = delayRender('Carregando as fontes da marca');
@@ -18,6 +21,8 @@ Promise.all(fontes.map((f) => f.load().then(() => document.fonts.add(f)))).then(
 
 export const mono = "'JetBrains Mono', ui-monospace, monospace";
 export const sans = 'Inter, system-ui, sans-serif';
+export const larga = "Archivo, 'Arial Black', sans-serif";
+export const serifa = "'Instrument Serif', Georgia, serif";
 
 export const cor = {
   terminal: '#0D0D0D',

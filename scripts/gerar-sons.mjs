@@ -65,10 +65,19 @@ const whoosh = (() => {
   });
 })();
 
+// impacto: batida grave que cai de tom + estalo (palavras gigantes batendo na tela)
+const impacto = (() => {
+  const r = ruido(77);
+  return sinal(0.5, (t) => {
+    const f = 40 + 90 * Math.exp(-t / 0.05);
+    return 0.95 * Math.sin(2 * Math.PI * f * t) * Math.exp(-t / 0.16) + 0.35 * r() * Math.exp(-t / 0.006);
+  });
+})();
+
 await mkdir(DIR, { recursive: true });
 const sons = {
   'tecla-1': tecla(7, 180), 'tecla-2': tecla(42, 210), 'tecla-3': tecla(99, 160),
-  tic, pop, acorde, whoosh,
+  tic, pop, acorde, whoosh, impacto,
 };
 for (const [nome, amostras] of Object.entries(sons)) {
   await writeFile(`${DIR}/${nome}.wav`, wav(amostras));
