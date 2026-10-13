@@ -245,6 +245,28 @@ export const CENAS = [
 ] as const;
 export const DURACAO_DEMO = CENAS.reduce((total, c) => total + c.duracao, 0);
 
+// início de cada cena, em quadros
+const inicioDa = (nome: (typeof CENAS)[number]['nome']) => {
+  let t = 0;
+  for (const cena of CENAS) {
+    if (cena.nome === nome) return t;
+    t += cena.duracao;
+  }
+  return t;
+};
+
+// batida de fundo: entra na abertura, some na virada (silêncio dramático), volta no óbvio e sai no fim
+const volumeDaBatida = (f: number) => {
+  const virada = inicioDa('virada');
+  const obvio = inicioDa('obvio');
+  return interpolate(
+    f,
+    [0, 34, virada - 6, virada, obvio, obvio + 10, DURACAO_DEMO - 20, DURACAO_DEMO],
+    [0, 0.9, 0.9, 0, 0, 0.65, 0.65, 0],
+    limitar,
+  );
+};
+
 export const AprendeOObvio: React.FC<Episodio> = (ep) => {
   let inicio = 0;
   const componentes: Record<(typeof CENAS)[number]['nome'], React.ReactNode> = {
@@ -252,6 +274,7 @@ export const AprendeOObvio: React.FC<Episodio> = (ep) => {
   };
   return (
     <AbsoluteFill style={{ background: cor.terminal }}>
+      <Audio src={staticFile('sons/batida.wav')} loop volume={volumeDaBatida} />
       {CENAS.map((cena) => {
         const sequencia = (
           <Sequence key={cena.nome} from={inicio} durationInFrames={cena.duracao}>
