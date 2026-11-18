@@ -1,0 +1,4 @@
+# A Meta não manda o JWT da Supabase, então esta função fica aberta
+# e confere a assinatura X-Hub-Signature-256 por conta própria.
+[functions.dm-comentario]
+verify_jwt = false
